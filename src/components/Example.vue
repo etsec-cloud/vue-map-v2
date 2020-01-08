@@ -9,7 +9,7 @@
         <form class="search-container">
         <input type="search" id="site-search" name="q"
         aria-label="Search through site content">
-        <a href="#"><img class="search-icon" src="../assets/searchlogo.png"></a>
+        <a href="#"><img class="search-icon" src="../assets/searchlogow.png"></a>
         </form>
     </div>
   </div>
