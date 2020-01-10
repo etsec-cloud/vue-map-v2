@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <Example></Example>
+    <Map></Map>
   </div>
 </template>
 
 <script>
-import Example from "./components/Example";
+import Map from "./components/Map";
 
 export default {
   name: "App",
+  // el: "#togglerLightMode",
   components: {
-    Example
+    Map
   }
 };
 </script>
 
 <style>
 @import "../node_modules/leaflet/dist/leaflet.css";
-
 
 .leaflet-fake-icon-image-2x {
   background-image: url(../node_modules/leaflet/dist/images/marker-icon-2x.png);
