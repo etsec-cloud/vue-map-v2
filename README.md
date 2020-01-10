@@ -1,26 +1,27 @@
 # osm_vue2
 
 ## Project setup
+
+Installation des dépendances :
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
+Lancer le serveur Vue :
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Fix CORS issues in local
 
-### Lints and fixes files
-```
-npm run lint
-```
+Installez cette extension dans Mozilla Firefox pour éviter les erreurs de CORS liés à une configuration locale : https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/
 
 ### Customize configuration
+
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 

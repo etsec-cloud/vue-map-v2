@@ -1,5 +1,3 @@
-  
-
 <template>
   <div id="mymap" class="flex-container">
     <div class="position1">
@@ -7,16 +5,10 @@
         <form class="search-container">
           <input type="search" id="site-search" name="q" aria-label="Search through site content" />
           <a href="#">
-            <img class="search-icon" src="../assets/searchlogow.png" />
+            <div class="search-icon" id="logoLoupe"></div>
           </a>
         </form>
       </div>
-    </div>
-
-    <div class="burger">
-      <span></span>
-      <span></span>
-      <span></span>
     </div>
 
     <div class="bagoche">
@@ -25,16 +17,9 @@
         <span class="slider round"></span>
       </label>
     </div>
-    <p class="francisporc">France Esport</p>
+    <p class="francisporc" id="texte">©France Esport</p>
 
-    <l-map
-      :zoom.sync="zoom"
-      :options="mapOptions"
-      :center="center"
-      :bounds="bounds"
-      :min-zoom="minZoom"
-      :max-zoom="maxZoom"
-    >
+    <l-map :zoom.sync="zoom" :options="mapOptions" :center="center" :bounds="bounds" :min-zoom="minZoom" :max-zoom="maxZoom">
       <l-tile-layer
         v-for="tileProvider in tileProviders"
         :key="tileProvider.name"
@@ -61,21 +46,9 @@
         <l-tooltip :content="marker.tooltip" />
       </l-marker>
       <l-layer-group layer-type="overlay" name="Layer polyline">
-        <l-polyline
-          v-for="item in polylines"
-          :key="item.id"
-          :lat-lngs="item.points"
-          :visible="item.visible"
-          @click="alert(item)"
-        />
+        <l-polyline v-for="item in polylines" :key="item.id" :lat-lngs="item.points" :visible="item.visible" @click="alert(item)" />
       </l-layer-group>
-      <l-layer-group
-        v-for="item in stuff"
-        :key="item.id"
-        :visible="item.visible"
-        layer-type="overlay"
-        name="Layer 1"
-      >
+      <l-layer-group v-for="item in stuff" :key="item.id" :visible="item.visible" layer-type="overlay" name="Layer 1">
         <l-layer-group :visible="item.markersVisible">
           <l-marker
             v-for="marker in item.markers"
@@ -86,11 +59,7 @@
             @click="alert(marker)"
           />
         </l-layer-group>
-        <l-polyline
-          :lat-lngs="item.polyline.points"
-          :visible="item.polyline.visible"
-          @click="alert(item.polyline)"
-        />
+        <l-polyline :lat-lngs="item.polyline.points" :visible="item.polyline.visible" @click="alert(item.polyline)" />
       </l-layer-group>
     </l-map>
   </div>
@@ -99,66 +68,33 @@
 <script>
 let currentLightMode = "Light";
 import { icon, latLngBounds } from "leaflet";
-import {
-  LMap,
-  LTileLayer,
-  LMarker,
-  LPolyline,
-  LLayerGroup,
-  LTooltip,
-  LPopup,
-  LControlZoom,
-  LControlAttribution,
-  LControlScale
-} from "vue2-leaflet";
+import { LMap, LTileLayer, LMarker, LPolyline, LLayerGroup, LTooltip, LPopup, LControlZoom, LControlAttribution, LControlScale } from "vue2-leaflet";
 
-const markers1 = [
-  // {
-  //   position: { lng: -1.219482, lat: 47.41322 },
-  //   visible: true,
-  //   draggable: true
-  // },
-  // { position: { lng: -1.571045, lat: 47.457809 } },
-  // { position: { lng: -1.560059, lat: 47.739323 } },
-  // { position: { lng: -0.922852, lat: 47.886881 } },
-  // { position: { lng: -0.769043, lat: 48.231991 } },
-  // { position: { lng: 0.395508, lat: 48.268569 } },
-  // { position: { lng: 0.604248, lat: 48.026672 } },
-  // { position: { lng: 1.2854, lat: 47.982568 } },
-  // { position: { lng: 1.318359, lat: 47.894248 } },
-  // { position: { lng: 1.373291, lat: 47.879513 } },
-  // { position: { lng: 1.384277, lat: 47.798397 } },
-  // { position: { lng: 1.329346, lat: 47.754098 } },
-  // { position: { lng: 1.329346, lat: 47.680183 } },
-  // { position: { lng: 0.999756, lat: 47.635784 } },
-  // { position: { lng: 0.86792, lat: 47.820532 } },
-  // { position: { lng: 0.571289, lat: 47.820532 } },
-  // { position: { lng: 0.439453, lat: 47.717154 } },
-  // { position: { lng: 0.439453, lat: 47.61357 } },
-  // { position: { lng: -0.571289, lat: 47.487513 } },
-  // { position: { lng: -0.615234, lat: 47.680183 } },
-  // { position: { lng: -0.812988, lat: 47.724545 } },
-  // { position: { lng: -1.054688, lat: 47.680183 } },
-  // { position: { lng: -1.219482, lat: 47.41322 } }
-];
+// this.$parent.pingsAPI.forEach(element => {
+//   /* eslint no-console: "off" */
+//   console.log(element)
+//   const newMarker = {
+//     id: "m" + element.id,
+//     position: { lat: element.lat, lng: element.lng },
+//     draggable: false,
+//     visible: true,
+//     tooltip: element.title,
+//     icon: icon.glyph({
+//       prefix: "",
+//       glyph: element.id
+//     })
+//   };
 
-// const poly1 = [
-//   { lng: -1.219482, lat: 47.41322 },
-//   { lng: -1.571045, lat: 47.457809 },
-//   { lng: -1.560059, lat: 47.739323 },
-//   { lng: -0.922852, lat: 47.886881 },
-//   { lng: -0.769043, lat: 48.231991 },
-//   { lng: 0.395508, lat: 48.268569 }
-// ];
+//   this.markers.push(newMarker);
+// });
 
+// let allMarkers;
 let tileProviders = [
   {
     name: "OpenStreetMap",
     visible: true,
-    attribution:
-      '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    url:
-      "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
+    attribution: '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    url: "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
   }
 ];
 
@@ -222,77 +158,49 @@ export default {
             glyph: "2"
           })
         }
-        // {
-        //   id: "m2",
-        //   position: { lat: 51.8905, lng: -0.09 },
-        //   tooltip: "tooltip for marker2",
-        //   draggable: true,
-        //   visible: false
-        // },
-        // {
-        //   id: "m3",
-        //   position: { lat: 51.005, lng: -0.09 },
-        //   tooltip: "tooltip for marker3",
-        //   draggable: true,
-        //   visible: true
-        // },
-        // {
-        //   id: "m4",
-        //   position: { lat: 50.7605, lng: -0.09 },
-        //   tooltip: "tooltip for marker4",
-        //   draggable: true,
-        //   visible: false
-        // }
       ],
-      polylines: [
-        // {
-        //   id: "p1",
-        //   points: [
-        //     { lat: 37.772, lng: -122.214 },
-        //     { lat: 21.291, lng: -157.821 },
-        //     { lat: -18.142, lng: -181.569 },
-        //     { lat: -27.467, lng: -206.973 }
-        //   ],
-        //   visible: true
-        // },
-        // {
-        //   id: "p2",
-        //   points: [[-73.91, 40.78], [-87.62, 41.83], [-96.72, 32.76]],
-        //   visible: true
-        // }
-      ],
-      // stuff: [
-      //   {
-      //     id: "s1",
-      //     markers: markers1,
-      //     polyline: { points: poly1, visible: false },
-      //     visible: true,
-      //     markersVisible: true
-      //   }
-      // ],
+      polylines: [],
       bounds: latLngBounds({ lat: 48.2, lng: 4.5 }, { lat: 51, lng: 0 })
     };
   },
+
   methods: {
     // alert(item) {
     //   alert("this is " + JSON.stringify(item));
     // },
+
     clickers: function() {
+      const texte = document.getElementById("texte");
+      const searchBar = document.getElementById("site-search");
+      const loupe = document.getElementById("logoLoupe");
+
       switch (currentLightMode) {
         case "Light":
           currentLightMode = "Dark";
-          tileProviders[0].url =
-            "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
+          // Change l'url d'obtention des tiles
+          tileProviders[0].url = "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
+          // Change la couleur des éléments
+          texte.classList.toggle("dark");
+          searchBar.classList.toggle("noir");
+          loupe.classList.toggle("search-icon-w");
+
           break;
+
         case "Dark":
           currentLightMode = "Light";
-          tileProviders[0].url =
-            "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
+          // Change l'url d'obtention des tiles
+          tileProviders[0].url = "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
+          4;
+          // Change la couleur des éléments
+          texte.classList.toggle("dark");
+          searchBar.classList.toggle("noir");
+          loupe.classList.toggle("search-icon-w");
+
           break;
+
         default:
           currentLightMode = "Light";
-          tileProviders[0].url =
-            "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
+          tileProviders[0].url = "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
       }
     },
     addMarker: function() {
@@ -305,10 +213,6 @@ export default {
     },
     removeMarker: function(index) {
       this.markers.splice(index, 1);
-    },
-    fitPolyline: function() {
-      const bounds = latLngBounds(markers1.map(o => o.position));
-      this.bounds = bounds;
     }
   }
 };
