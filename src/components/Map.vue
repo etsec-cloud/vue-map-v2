@@ -1,30 +1,31 @@
   
 
 <template>
-
   <div id="mymap" class="flex-container">
-  <div class="position1">
-
-    <div class="searchBar">
+    <div class="position1">
+      <div class="searchBar">
         <form class="search-container">
-        <input type="search" id="site-search" name="q"
-        aria-label="Search through site content">
-        <a href="#"><img class="search-icon" src="../assets/searchlogow.png"></a>
+          <input type="search" id="site-search" name="q" aria-label="Search through site content" />
+          <a href="#">
+            <img class="search-icon" src="../assets/searchlogow.png" />
+          </a>
         </form>
+      </div>
     </div>
-  </div>
-    
-  <div class="burger">
-    <span></span>
-    <span></span>
-    <span></span>
 
-  </div>
-  
-  <label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
+    <div class="burger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="bagoche">
+      <label class="switch">
+        <input type="checkbox" v-on:click="clickers()" />
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <p class="francisporc">France Esport</p>
 
     <l-map
       :zoom.sync="zoom"
@@ -96,6 +97,7 @@
 </template>
 
 <script>
+let currentLightMode = "Light";
 import { icon, latLngBounds } from "leaflet";
 import {
   LMap,
@@ -146,36 +148,20 @@ const markers1 = [
 //   { lng: -1.560059, lat: 47.739323 },
 //   { lng: -0.922852, lat: 47.886881 },
 //   { lng: -0.769043, lat: 48.231991 },
-//   { lng: 0.395508, lat: 48.268569 },
-//   { lng: 0.604248, lat: 48.026672 },
-//   { lng: 1.2854, lat: 47.982568 },
-//   { lng: 1.318359, lat: 47.894248 },
-//   { lng: 1.373291, lat: 47.879513 },
-//   { lng: 1.384277, lat: 47.798397 },
-//   { lng: 1.329346, lat: 47.754098 },
-//   { lng: 1.329346, lat: 47.680183 },
-//   { lng: 0.999756, lat: 47.635784 },
-//   { lng: 0.86792, lat: 47.820532 },
-//   { lng: 0.571289, lat: 47.820532 },
-//   { lng: 0.439453, lat: 47.717154 },
-//   { lng: 0.439453, lat: 47.61357 },
-//   { lng: -0.571289, lat: 47.487513 },
-//   { lng: -0.615234, lat: 47.680183 },
-//   { lng: -0.812988, lat: 47.724545 },
-//   { lng: -1.054688, lat: 47.680183 },
-//   { lng: -1.219482, lat: 47.41322 }
+//   { lng: 0.395508, lat: 48.268569 }
 // ];
 
-const tileProviders = [
+let tileProviders = [
   {
     name: "OpenStreetMap",
     visible: true,
     attribution:
       '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     url:
-      "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png"
+      "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png"
   }
 ];
+
 // 	Dark mode : https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png
 // Light mode : https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png
 
@@ -291,6 +277,24 @@ export default {
     // alert(item) {
     //   alert("this is " + JSON.stringify(item));
     // },
+    clickers: function() {
+      switch (currentLightMode) {
+        case "Light":
+          currentLightMode = "Dark";
+          tileProviders[0].url =
+            "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
+          break;
+        case "Dark":
+          currentLightMode = "Light";
+          tileProviders[0].url =
+            "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
+          break;
+        default:
+          currentLightMode = "Light";
+          tileProviders[0].url =
+            "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
+      }
+    },
     addMarker: function() {
       const newMarker = {
         position: { lat: 50.5505, lng: -0.09 },
