@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("SofiaProRegular.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
 .position1 {
   position: absolute;
   left: 50%;
@@ -21,10 +28,10 @@ input[type="search"] {
   height: 100%;
   padding-left: 40px;
 }
-.noir{
+.noir {
   border: 1px solid #858585 !important;
-  box-shadow: 0px 1px 5px -2px rgba(255, 255, 255, 0.692)!important;
-  background-color: #858585!important;
+  box-shadow: 0px 1px 5px -2px rgba(255, 255, 255, 0.692) !important;
+  background-color: #858585 !important;
 }
 .search-container {
   width: 100%;
@@ -37,12 +44,12 @@ input[type="search"] {
   height: 20px;
   top: -24px;
   right: -8px;
-  background-position:center center;
+  background-position: center center;
   background-size: contain;
   z-index: 10000000000;
   background-image: url(../assets/searchlogo.png);
 }
-.search-icon-w{
+.search-icon-w {
   background-image: url(../assets/searchlogow.png) !important;
 }
 
@@ -58,8 +65,8 @@ input[type="search"] {
   transform-origin: 4px 0px;
   transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
-.dark{
-    color: white !important;
+.dark {
+  color: white !important;
 }
 
 .bagoche {
@@ -67,9 +74,11 @@ input[type="search"] {
 }
 
 .francisporc {
+  font-family: Sofia Pro;
+  font-size: 14px;
   z-index: 10000;
-  bottom: 10px;
-  left: 20px;
+  bottom: 13px;
+  left: 22px;
   position: absolute;
   color: black;
 }
@@ -139,4 +148,51 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+/* Pop up */
+.popUp {
+  /* display: none !important;*/
+  font-family: Sofia Pro;
+  width: 380px;
+  height: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  z-index: 450;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 8px -1px rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0px 0px 8px -1px rgba(0, 0, 0, 1);
+  box-shadow: 0px 0px 8px -1px rgba(0, 0, 0, 1);
+}
 
+.popUp .containerImg {
+  height: 200px;
+  width: 100%;
+}
+
+.popUp .containerImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.popUp .title {
+  margin: 20px;
+}
+
+.popUp .desc {
+  overflow: auto;
+  height: 200px;
+  text-justify: left;
+}
+
+.popUp .btn {
+  margin-top: 20px;
+  cursor: pointer;
+  padding: 10px;
+  background-color: #13821375;
+}
