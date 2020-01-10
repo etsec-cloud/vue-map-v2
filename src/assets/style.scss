@@ -5,6 +5,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Sofia Pro";
+  src: url("SofiaProBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
 .position1 {
   position: absolute;
   left: 50%;
@@ -30,6 +37,7 @@ input[type="search"] {
 }
 .noir {
   border: 1px solid #858585 !important;
+  color: #fff;
   box-shadow: 0px 1px 5px -2px rgba(255, 255, 255, 0.692) !important;
   background-color: #858585 !important;
 }
@@ -153,15 +161,15 @@ input:checked + .slider:before {
   /* display: none !important;*/
   font-family: Sofia Pro;
   width: 380px;
-  height: 550px;
+  height: 675px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: calc(1.5vw + 10px);
+  transform: translate(0, -50%);
   border-radius: 10px;
   z-index: 450;
   background-color: white;
@@ -186,13 +194,20 @@ input:checked + .slider:before {
 
 .popUp .desc {
   overflow: auto;
-  height: 200px;
+  height: 325px;
   text-justify: left;
+}
+
+.popUp .boldText {
+  font-size: 19px;
+  font-weight: bold;
 }
 
 .popUp .btn {
   margin-top: 20px;
   cursor: pointer;
-  padding: 10px;
-  background-color: #13821375;
+  padding: 6px 16px;
+  border-radius: 20px;
+  color: #fff;
+  background-color: #09b1ff;
 }
