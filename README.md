@@ -22,3 +22,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+### Fix CORS issues in local
+
+Install this extension on Mozilla Firefox : https://addons.mozilla.org/fr/firefox/addon/cors-everywhere/
