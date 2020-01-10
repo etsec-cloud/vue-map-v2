@@ -1,5 +1,3 @@
-  
-
 <template>
   <div id="mymap" class="flex-container">
     <div class="position1">
@@ -7,16 +5,12 @@
         <form class="search-container">
           <input type="search" id="site-search" name="q" aria-label="Search through site content" />
           <a href="#">
-            <img class="search-icon" src="../assets/searchlogow.png" />
+            <div class="search-icon" id="logoLoupe">
+
+            </div>
           </a>
         </form>
       </div>
-    </div>
-
-    <div class="burger">
-      <span></span>
-      <span></span>
-      <span></span>
     </div>
 
     <div class="bagoche">
@@ -25,7 +19,7 @@
         <span class="slider round"></span>
       </label>
     </div>
-    <p class="francisporc">France Esport</p>
+    <p class="francisporc" id="texte">France Esport</p>
 
     <l-map
       :zoom.sync="zoom"
@@ -97,6 +91,7 @@
 </template>
 
 <script>
+
 let currentLightMode = "Light";
 import { icon, latLngBounds } from "leaflet";
 import {
@@ -162,10 +157,12 @@ let tileProviders = [
   }
 ];
 
+
 // 	Dark mode : https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png
 // Light mode : https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png
 
 export default {
+  
   name: "Example",
   components: {
     LMap,
@@ -178,8 +175,10 @@ export default {
     LControlZoom,
     LControlAttribution,
     LControlScale
+    
   },
   data() {
+    
     return {
       center: [48.866667, 2.333333],
       opacity: 0.6,
@@ -273,26 +272,53 @@ export default {
       bounds: latLngBounds({ lat: 48.2, lng: 4.5 }, { lat: 51, lng: 0 })
     };
   },
+
+
+  
+  
+ 
+
+
   methods: {
     // alert(item) {
     //   alert("this is " + JSON.stringify(item));
     // },
+
+
     clickers: function() {
+const texte = document.getElementById('texte');
+const searchBar = document.getElementById('site-search');
+const loupe = document.getElementById('logoLoupe');
+
+
       switch (currentLightMode) {
         case "Light":
           currentLightMode = "Dark";
           tileProviders[0].url =
             "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png";
+          texte.classList.toggle("dark");
+          searchBar.classList.toggle("noir");
+          loupe.classList.toggle("search-icon-w")
+
           break;
+
         case "Dark":
           currentLightMode = "Light";
           tileProviders[0].url =
             "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
+          texte.classList.toggle("dark");
+          searchBar.classList.toggle("noir");
+          loupe.classList.toggle("search-icon-w")
+
           break;
+
         default:
           currentLightMode = "Light";
           tileProviders[0].url =
             "	https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png";
+
+
+            
       }
     },
     addMarker: function() {
@@ -311,7 +337,9 @@ export default {
       this.bounds = bounds;
     }
   }
+  
 };
+
 </script>
 <style scoped>
 @import "../../node_modules/leaflet/dist/leaflet.css";
